@@ -25,8 +25,8 @@ export function EventForm() {
     e.preventDefault()
     console.log('Submitted event:', eventData)
     toast({
-      title: "Event saved successfully",
-      description: "The event details have been recorded",
+      title: "האירוע נשמר בהצלחה",
+      description: "פרטי האירוע נרשמו",
     })
   }
 
@@ -40,12 +40,12 @@ export function EventForm() {
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Add New Event</h3>
+      <h3 className="text-lg font-semibold mb-4">הוספת אירוע חדש</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
             name="eventType"
-            placeholder="Event Type"
+            placeholder="סוג אירוע"
             value={eventData.eventType}
             onChange={handleChange}
           />
@@ -70,32 +70,32 @@ export function EventForm() {
           <Input
             name="dishCount"
             type="number"
-            placeholder="Number of Dishes"
+            placeholder="מספר מנות"
             value={eventData.dishCount}
             onChange={handleChange}
           />
           <Input
             name="participantCount"
             type="number"
-            placeholder="Number of Participants"
+            placeholder="מספר משתתפים"
             value={eventData.participantCount}
             onChange={handleChange}
           />
           <Input
             name="confirmerName"
-            placeholder="Full Name (Confirmer)"
+            placeholder="שם מלא (מאשר)"
             value={eventData.confirmerName}
             onChange={handleChange}
           />
           <Input
             name="rank"
-            placeholder="Rank"
+            placeholder="דרגה"
             value={eventData.rank}
             onChange={handleChange}
           />
           <Input
             name="role"
-            placeholder="Role"
+            placeholder="תפקיד"
             value={eventData.role}
             onChange={handleChange}
           />
@@ -108,13 +108,13 @@ export function EventForm() {
         </div>
         <Input
           name="details"
-          placeholder="Event Details"
+          placeholder="פרטי האירוע"
           value={eventData.details}
           onChange={handleChange}
           className="w-full"
         />
         <Button type="submit" className="w-full">
-          Save Event
+          שמור אירוע
         </Button>
       </form>
     </Card>

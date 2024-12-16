@@ -6,10 +6,13 @@ import { useToast } from "@/hooks/use-toast"
 import * as XLSX from 'xlsx'
 import { Transaction } from "@/types"
 
-export function FileUpload() {
+interface FileUploadProps {
+  onTransactionsUpdate: (transactions: Transaction[]) => void
+}
+
+export function FileUpload({ onTransactionsUpdate }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
   const { toast } = useToast()
-  const [transactions, setTransactions] = useState<Transaction[]>([])
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
@@ -41,8 +44,8 @@ export function FileUpload() {
     if (validFiles.length === 0) {
       toast({
         variant: "destructive",
-        title: "Invalid file format",
-        description: "Please upload Excel files only",
+        title: "פורמט קובץ לא חוקי",
+        description: "אנא העלה קובץ אקסל בלבד",
       })
       return
     }
@@ -66,18 +69,18 @@ export function FileUpload() {
         amountOwed: Number(row['Amount owed']) || 0
       }))
 
-      setTransactions(parsedTransactions)
+      onTransactionsUpdate(parsedTransactions)
       toast({
-        title: "File processed successfully",
-        description: `Loaded ${parsedTransactions.length} transactions`,
+        title: "הקובץ עובד בהצלחה",
+        description: `נטענו ${parsedTransactions.length} עסקאות`,
       })
 
       console.log('Processed transactions:', parsedTransactions)
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error processing file",
-        description: "Please check the file format and try again",
+        title: "שגיאה בעיבוד הקובץ",
+        description: "אנא בדוק את פורמט הקובץ ונסה שוב",
       })
     }
   }
@@ -93,9 +96,9 @@ export function FileUpload() {
     >
       <div className="flex flex-col items-center justify-center text-center">
         <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-        <h3 className="text-lg font-semibold mb-2">Upload Transaction Data</h3>
+        <h3 className="text-lg font-semibold mb-2">העלאת נתוני עסקאות</h3>
         <p className="text-sm text-muted-foreground mb-4">
-          Import transaction details from Excel files
+          ייבוא פרטי עסקאות מקבצי אקסל
         </p>
         <input
           type="file"
@@ -106,11 +109,11 @@ export function FileUpload() {
         />
         <Button asChild>
           <label htmlFor="file-upload" className="cursor-pointer">
-            Choose Excel File
+            בחר קובץ אקסל
           </label>
         </Button>
         <p className="text-sm text-muted-foreground mt-2">
-          File must contain: Company name, Transaction date/time, Employee details, and Amount
+          הקובץ חייב להכיל: שם חברה, תאריך/שעת עסקה, פרטי עובד וסכום
         </p>
       </div>
     </Card>

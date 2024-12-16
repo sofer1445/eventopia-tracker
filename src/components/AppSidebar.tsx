@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/sidebar"
 
 const menuItems = [
-  { title: "Home", icon: Home, href: "/" },
-  { title: "Statistics", icon: BarChart2, href: "/statistics" },
-  { title: "Reports", icon: FileText, href: "/reports" },
+  { title: "דף הבית", icon: Home, href: "/" },
+  { title: "סטטיסטיקות", icon: BarChart2, href: "/statistics" },
+  { title: "דוחות", icon: FileText, href: "/reports" },
 ]
 
 export function AppSidebar() {
@@ -21,7 +21,7 @@ export function AppSidebar() {
       <SidebarContent>
         <div className="flex items-center gap-2 px-4 py-4">
           <BarChart2 className="h-6 w-6 text-primary" />
-          <span className="font-semibold text-xl">Event Tracker</span>
+          <span className="font-semibold text-xl">מעקב אירועים</span>
         </div>
         <SidebarGroup>
           <SidebarGroupContent>
