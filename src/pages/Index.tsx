@@ -2,6 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/AppSidebar"
 import { StatsCard } from "@/components/StatsCard"
 import { FileUpload } from "@/components/FileUpload"
+import { Card } from "@/components/ui/card"
 
 const Index = () => {
   return (
