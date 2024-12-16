@@ -1,24 +1,18 @@
-import { FileUp, BarChart2, Clock, Settings, FolderOpen, CalendarDays, Building2, Users } from "lucide-react"
+import { BarChart2, Home, FileText } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
 const menuItems = [
-  { title: "Dashboard", icon: BarChart2, href: "/" },
-  { title: "Events", icon: CalendarDays, href: "/events" },
-  { title: "Transactions", icon: Building2, href: "/transactions" },
-  { title: "Reports", icon: FolderOpen, href: "/reports" },
-  { title: "Team", icon: Users, href: "/team" },
-  { title: "Upload Data", icon: FileUp, href: "/upload" },
-  { title: "Recent Activity", icon: Clock, href: "/activity" },
-  { title: "Settings", icon: Settings, href: "/settings" },
+  { title: "Home", icon: Home, href: "/" },
+  { title: "Statistics", icon: BarChart2, href: "/statistics" },
+  { title: "Reports", icon: FileText, href: "/reports" },
 ]
 
 export function AppSidebar() {
