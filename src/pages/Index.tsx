@@ -1,14 +1,34 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/AppSidebar"
+import { StatsCard } from "@/components/StatsCard"
+import { FileUpload } from "@/components/FileUpload"
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
-};
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        <main className="flex-1 p-8">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Welcome to AI Reports</h1>
+              <p className="text-muted-foreground">
+                Upload your files and get instant AI-powered analysis
+              </p>
+            </div>
 
-export default Index;
+            <FileUpload />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <StatsCard title="Total Documents" value="24" />
+              <StatsCard title="Recent Analyses" value="12" />
+              <StatsCard title="AI Insights" value="36" />
+            </div>
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
+  )
+}
+
+export default Index
