@@ -32,13 +32,14 @@ export function FileUpload() {
   const handleFiles = (files: File[]) => {
     const validFiles = files.filter(file => 
       file.name.endsWith('.xlsx') || 
+      file.name.endsWith('.xls') ||
       file.name.endsWith('.csv')
     )
 
     if (validFiles.length > 0) {
       toast({
         title: "Files uploaded successfully",
-        description: `${validFiles.length} file(s) ready for analysis`,
+        description: `${validFiles.length} file(s) ready for processing. Data validation in progress...`,
       })
     } else {
       toast({
@@ -60,25 +61,25 @@ export function FileUpload() {
     >
       <div className="flex flex-col items-center justify-center text-center">
         <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-        <h3 className="text-lg font-semibold mb-2">Upload and Analyze</h3>
+        <h3 className="text-lg font-semibold mb-2">Upload Event Data</h3>
         <p className="text-sm text-muted-foreground mb-4">
-          Drag and drop your files here, or click to select files
+          Import event details and transactions from Excel or CSV files
         </p>
         <input
           type="file"
           id="file-upload"
           className="hidden"
-          accept=".xlsx,.csv"
+          accept=".xlsx,.xls,.csv"
           onChange={handleFileInput}
           multiple
         />
         <Button asChild>
           <label htmlFor="file-upload" className="cursor-pointer">
-            Choose File to Analyze
+            Choose Files to Import
           </label>
         </Button>
         <p className="text-sm text-muted-foreground mt-2">
-          Supports Excel, CSV
+          Supports Excel (XLSX, XLS) and CSV formats
         </p>
       </div>
     </Card>

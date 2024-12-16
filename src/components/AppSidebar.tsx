@@ -1,4 +1,4 @@
-import { FileUp, BarChart2, Clock, Settings, FolderOpen } from "lucide-react"
+import { FileUp, BarChart2, Clock, Settings, FolderOpen, CalendarDays, Building2, Users } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -11,9 +11,13 @@ import {
 } from "@/components/ui/sidebar"
 
 const menuItems = [
-  { title: "Upload Files", icon: FileUp, href: "/" },
-  { title: "My Reports", icon: FolderOpen, href: "/reports" },
-  { title: "Recent Analysis", icon: Clock, href: "/recent" },
+  { title: "Dashboard", icon: BarChart2, href: "/" },
+  { title: "Events", icon: CalendarDays, href: "/events" },
+  { title: "Transactions", icon: Building2, href: "/transactions" },
+  { title: "Reports", icon: FolderOpen, href: "/reports" },
+  { title: "Team", icon: Users, href: "/team" },
+  { title: "Upload Data", icon: FileUp, href: "/upload" },
+  { title: "Recent Activity", icon: Clock, href: "/activity" },
   { title: "Settings", icon: Settings, href: "/settings" },
 ]
 
@@ -23,7 +27,7 @@ export function AppSidebar() {
       <SidebarContent>
         <div className="flex items-center gap-2 px-4 py-4">
           <BarChart2 className="h-6 w-6 text-primary" />
-          <span className="font-semibold text-xl">AI Reports</span>
+          <span className="font-semibold text-xl">Event Tracker</span>
         </div>
         <SidebarGroup>
           <SidebarGroupContent>
