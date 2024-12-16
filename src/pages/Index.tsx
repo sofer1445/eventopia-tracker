@@ -3,6 +3,7 @@ import { StatsCard } from "@/components/StatsCard"
 import { FileUpload } from "@/components/FileUpload"
 import { EventForm } from "@/components/EventForm"
 import { Card } from "@/components/ui/card"
+import { SidebarProvider } from "@/components/ui/sidebar"
 
 const Index = () => {
   return (
