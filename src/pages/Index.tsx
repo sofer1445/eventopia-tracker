@@ -4,9 +4,9 @@ import { StatsCard } from "@/components/StatsCard"
 import { FileUpload } from "@/components/FileUpload"
 import { EventForm } from "@/components/EventForm"
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { useState } from "react"
 import { Transaction } from "@/types"
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 
 const Index = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -20,7 +20,7 @@ const Index = () => {
       <div className="min-h-screen flex w-full" dir="rtl">
         <AppSidebar />
         <main className="flex-1 p-8">
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="max-w-7xl mx-auto space-y-8">
             <div>
               <h1 className="text-3xl font-bold mb-2">לוח בקרת אירועים</h1>
               <p className="text-muted-foreground">
@@ -29,27 +29,23 @@ const Index = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <StatsCard 
-                title="סה״כ אירועים" 
-                value="0" 
-              />
-              <StatsCard 
-                title="סה״כ עסקאות" 
-                value="0" 
-              />
+              <StatsCard title="סה״כ אירועים" value="0" />
+              <StatsCard title="סה״כ עסקאות" value={transactions.length.toString()} />
               <StatsCard 
                 title="סה״כ סכום" 
-                value="₪0" 
+                value={`₪${transactions.reduce((sum, t) => sum + t.amountOwed, 0).toLocaleString()}`} 
               />
               <StatsCard 
                 title="ממוצע לעסקה" 
-                value="₪0" 
+                value={`₪${transactions.length ? 
+                  (transactions.reduce((sum, t) => sum + t.amountOwed, 0) / transactions.length).toLocaleString() : 
+                  '0'}`} 
               />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold">ייבוא עסקאות</h2>
+              <div className="order-2 lg:order-1">
+                <h2 className="text-xl font-semibold mb-4">ייבוא עסקאות</h2>
                 <FileUpload onTransactionsUpdate={handleTransactionsUpdate} />
                 
                 {transactions.length > 0 && (
@@ -82,7 +78,7 @@ const Index = () => {
                                 <TableCell>{transaction.groupName}</TableCell>
                                 <TableCell>{transaction.businessName}</TableCell>
                                 <TableCell>{transaction.transactionType}</TableCell>
-                                <TableCell>₪{transaction.amountOwed}</TableCell>
+                                <TableCell>₪{transaction.amountOwed.toLocaleString()}</TableCell>
                               </TableRow>
                             ))}
                           </TableBody>
@@ -92,8 +88,9 @@ const Index = () => {
                   </Card>
                 )}
               </div>
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold">הוספת אירוע חדש</h2>
+              
+              <div className="order-1 lg:order-2">
+                <h2 className="text-xl font-semibold mb-4">הוספת אירוע חדש</h2>
                 <EventForm />
               </div>
             </div>
