@@ -58,15 +58,15 @@ export function FileUpload({ onTransactionsUpdate }: FileUploadProps) {
       const jsonData = XLSX.utils.sheet_to_json(worksheet)
 
       const parsedTransactions = jsonData.map((row: any) => ({
-        companyName: row['Company name'] || '',
-        transactionDate: row['Transaction date'] || '',
-        transactionTime: row['Transaction time'] || '',
-        transactionNumber: row['Transaction number'] || '',
-        employeeName: row['Employee name'] || '',
-        groupName: row['Group name'] || '',
-        businessName: row['Business name'] || '',
-        transactionType: row['Transaction type'] || '',
-        amountOwed: Number(row['Amount owed']) || 0
+        companyName: row['שם חברה'] || '',
+        transactionDate: row['תאריך'] || '',
+        transactionTime: row['שעה'] || '',
+        transactionNumber: row['מספר עסקה'] || '',
+        employeeName: row['שם עובד'] || '',
+        groupName: row['שם קבוצה'] || '',
+        businessName: row['שם עסק'] || '',
+        transactionType: row['סוג עסקה'] || '',
+        amountOwed: Number(row['סכום']) || 0
       }))
 
       onTransactionsUpdate(parsedTransactions)
@@ -74,9 +74,8 @@ export function FileUpload({ onTransactionsUpdate }: FileUploadProps) {
         title: "הקובץ עובד בהצלחה",
         description: `נטענו ${parsedTransactions.length} עסקאות`,
       })
-
-      console.log('Processed transactions:', parsedTransactions)
     } catch (error) {
+      console.error('Error processing file:', error)
       toast({
         variant: "destructive",
         title: "שגיאה בעיבוד הקובץ",
@@ -113,7 +112,7 @@ export function FileUpload({ onTransactionsUpdate }: FileUploadProps) {
           </label>
         </Button>
         <p className="text-sm text-muted-foreground mt-2">
-          הקובץ חייב להכיל: שם חברה, תאריך/שעת עסקה, פרטי עובד וסכום
+          הקובץ חייב להכיל: שם חברה, תאריך, שעה, מספר עסקה, שם עובד, שם קבוצה, שם עסק, סוג עסקה וסכום
         </p>
       </div>
     </Card>

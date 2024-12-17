@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card"
 import { AppSidebar } from "@/components/AppSidebar"
 import { StatsCard } from "@/components/StatsCard"
 import { FileUpload } from "@/components/FileUpload"
@@ -30,68 +29,58 @@ const Index = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <StatsCard title="סה״כ אירועים" value="0" />
-              <StatsCard title="סה״כ עסקאות" value={transactions.length.toString()} />
-              <StatsCard 
-                title="סה״כ סכום" 
-                value={`₪${transactions.reduce((sum, t) => sum + t.amountOwed, 0).toLocaleString()}`} 
-              />
-              <StatsCard 
-                title="ממוצע לעסקה" 
-                value={`₪${transactions.length ? 
-                  (transactions.reduce((sum, t) => sum + t.amountOwed, 0) / transactions.length).toLocaleString() : 
-                  '0'}`} 
-              />
+              <StatsCard title="סה״כ כסף" value="₪0" />
+              <StatsCard title="סה״כ עסקאות" value="1" />
+              <StatsCard title="סה״כ אירועים" value="0" />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="order-2 lg:order-1">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="lg:order-2">
+                <h2 className="text-xl font-semibold mb-4">הוספת אירוע חדש</h2>
+                <EventForm />
+              </div>
+              
+              <div className="lg:order-1">
                 <h2 className="text-xl font-semibold mb-4">ייבוא עסקאות</h2>
                 <FileUpload onTransactionsUpdate={handleTransactionsUpdate} />
                 
                 {transactions.length > 0 && (
-                  <Card className="mt-4">
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold mb-4">נתוני עסקאות</h3>
-                      <div className="overflow-x-auto">
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>שם חברה</TableHead>
-                              <TableHead>תאריך</TableHead>
-                              <TableHead>שעה</TableHead>
-                              <TableHead>מספר עסקה</TableHead>
-                              <TableHead>שם עובד</TableHead>
-                              <TableHead>שם קבוצה</TableHead>
-                              <TableHead>שם עסק</TableHead>
-                              <TableHead>סוג עסקה</TableHead>
-                              <TableHead>סכום</TableHead>
+                  <div className="mt-6 bg-white rounded-lg shadow">
+                    <h3 className="text-lg font-semibold p-4 border-b">נתוני עסקאות</h3>
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>שם חברה</TableHead>
+                            <TableHead>תאריך</TableHead>
+                            <TableHead>שעה</TableHead>
+                            <TableHead>מספר עסקה</TableHead>
+                            <TableHead>שם עובד</TableHead>
+                            <TableHead>שם קבוצה</TableHead>
+                            <TableHead>שם עסק</TableHead>
+                            <TableHead>סוג עסקה</TableHead>
+                            <TableHead>סכום</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {transactions.map((transaction, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{transaction.companyName}</TableCell>
+                              <TableCell>{transaction.transactionDate}</TableCell>
+                              <TableCell>{transaction.transactionTime}</TableCell>
+                              <TableCell>{transaction.transactionNumber}</TableCell>
+                              <TableCell>{transaction.employeeName}</TableCell>
+                              <TableCell>{transaction.groupName}</TableCell>
+                              <TableCell>{transaction.businessName}</TableCell>
+                              <TableCell>{transaction.transactionType}</TableCell>
+                              <TableCell>₪{transaction.amountOwed.toLocaleString()}</TableCell>
                             </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {transactions.map((transaction, index) => (
-                              <TableRow key={index}>
-                                <TableCell>{transaction.companyName}</TableCell>
-                                <TableCell>{transaction.transactionDate}</TableCell>
-                                <TableCell>{transaction.transactionTime}</TableCell>
-                                <TableCell>{transaction.transactionNumber}</TableCell>
-                                <TableCell>{transaction.employeeName}</TableCell>
-                                <TableCell>{transaction.groupName}</TableCell>
-                                <TableCell>{transaction.businessName}</TableCell>
-                                <TableCell>{transaction.transactionType}</TableCell>
-                                <TableCell>₪{transaction.amountOwed.toLocaleString()}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
+                          ))}
+                        </TableBody>
+                      </Table>
                     </div>
-                  </Card>
+                  </div>
                 )}
-              </div>
-              
-              <div className="order-1 lg:order-2">
-                <h2 className="text-xl font-semibold mb-4">הוספת אירוע חדש</h2>
-                <EventForm />
               </div>
             </div>
           </div>
