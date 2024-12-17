@@ -6,12 +6,27 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { useState } from "react"
 import { Transaction } from "@/types"
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 const Index = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const handleTransactionsUpdate = (newTransactions: Transaction[]) => {
     setTransactions(newTransactions)
+  }
+
+  const tableHeaders = {
+    'שם חברה': 'companyName',
+    'תאריך': 'transactionDate',
+    'שעה': 'transactionTime',
+    'מספר עסקה': 'transactionNumber',
+    'שם עובד': 'employeeName',
+    'שם קבוצה': 'groupName',
+    'שם עסק': 'businessName',
+    'סוג עסקה': 'transactionType',
+    'סכום': 'amountOwed'
   }
 
   return (
@@ -34,54 +49,53 @@ const Index = () => {
               <StatsCard title="סה״כ אירועים" value="0" />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="lg:order-2">
-                <h2 className="text-xl font-semibold mb-4">הוספת אירוע חדש</h2>
-                <EventForm />
-              </div>
-              
-              <div className="lg:order-1">
+            <div className="space-y-6">
+              <div>
                 <h2 className="text-xl font-semibold mb-4">ייבוא עסקאות</h2>
                 <FileUpload onTransactionsUpdate={handleTransactionsUpdate} />
-                
-                {transactions.length > 0 && (
-                  <div className="mt-6 bg-white rounded-lg shadow">
-                    <h3 className="text-lg font-semibold p-4 border-b">נתוני עסקאות</h3>
-                    <div className="overflow-x-auto">
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>שם חברה</TableHead>
-                            <TableHead>תאריך</TableHead>
-                            <TableHead>שעה</TableHead>
-                            <TableHead>מספר עסקה</TableHead>
-                            <TableHead>שם עובד</TableHead>
-                            <TableHead>שם קבוצה</TableHead>
-                            <TableHead>שם עסק</TableHead>
-                            <TableHead>סוג עסקה</TableHead>
-                            <TableHead>סכום</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {transactions.map((transaction, index) => (
-                            <TableRow key={index}>
-                              <TableCell>{transaction.companyName}</TableCell>
-                              <TableCell>{transaction.transactionDate}</TableCell>
-                              <TableCell>{transaction.transactionTime}</TableCell>
-                              <TableCell>{transaction.transactionNumber}</TableCell>
-                              <TableCell>{transaction.employeeName}</TableCell>
-                              <TableCell>{transaction.groupName}</TableCell>
-                              <TableCell>{transaction.businessName}</TableCell>
-                              <TableCell>{transaction.transactionType}</TableCell>
-                              <TableCell>₪{transaction.amountOwed.toLocaleString()}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </div>
-                  </div>
-                )}
               </div>
+              
+              {transactions.length > 0 && (
+                <div className="bg-white rounded-lg shadow">
+                  <h3 className="text-lg font-semibold p-4 border-b">נתוני עסקאות</h3>
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          {Object.keys(tableHeaders).map((header) => (
+                            <TableHead key={header}>{header}</TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {transactions.map((transaction, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{transaction.companyName}</TableCell>
+                            <TableCell>{transaction.transactionDate}</TableCell>
+                            <TableCell>{transaction.transactionTime}</TableCell>
+                            <TableCell>{transaction.transactionNumber}</TableCell>
+                            <TableCell>{transaction.employeeName}</TableCell>
+                            <TableCell>{transaction.groupName}</TableCell>
+                            <TableCell>{transaction.businessName}</TableCell>
+                            <TableCell>{transaction.transactionType}</TableCell>
+                            <TableCell>₪{transaction.amountOwed.toLocaleString()}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                  <div className="p-4 border-t">
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="w-full">הוספת דיווח</Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl">
+                        <EventForm />
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </main>

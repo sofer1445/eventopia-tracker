@@ -66,7 +66,7 @@ export function FileUpload({ onTransactionsUpdate }: FileUploadProps) {
         groupName: row['שם קבוצה'] || '',
         businessName: row['שם עסק'] || '',
         transactionType: row['סוג עסקה'] || '',
-        amountOwed: Number(row['סכום']) || 0
+        amountOwed: Number(row['סכום חיוב']) || 0
       }))
 
       onTransactionsUpdate(parsedTransactions)
@@ -111,9 +111,20 @@ export function FileUpload({ onTransactionsUpdate }: FileUploadProps) {
             בחר קובץ אקסל
           </label>
         </Button>
-        <p className="text-sm text-muted-foreground mt-2">
-          הקובץ חייב להכיל: שם חברה, תאריך, שעה, מספר עסקה, שם עובד, שם קבוצה, שם עסק, סוג עסקה וסכום
+        <p className="text-sm text-muted-foreground mt-4">
+          הקובץ חייב להכיל את העמודות הבאות:
         </p>
+        <ul className="text-sm text-muted-foreground mt-2 space-y-1">
+          <li>שם חברה - שם החברה המבצעת</li>
+          <li>תאריך - תאריך העסקה</li>
+          <li>שעה - שעת העסקה</li>
+          <li>מספר עסקה - מספר מזהה לעסקה</li>
+          <li>שם עובד - שם העובד המטפל</li>
+          <li>שם קבוצה - שם הקבוצה</li>
+          <li>שם עסק - שם העסק</li>
+          <li>סוג עסקה - סוג העסקה</li>
+          <li>סכום חיוב - סכום העסקה</li>
+        </ul>
       </div>
     </Card>
   )
